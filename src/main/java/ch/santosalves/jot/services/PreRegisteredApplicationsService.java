@@ -36,6 +36,7 @@ public class PreRegisteredApplicationsService {
         p.setPin("" + pin);
         java.sql.Timestamp tstp = new Timestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC) * 1000);
         p.setCreationDate(tstp);
+        p.setSuccess(0);
         prar.save(p);
 
         return new PreRegisteredApplication(p);

@@ -1,0 +1,12 @@
+.classpath
+.project
+.settings/
+target/
+ci-env.properties
+src/main/resources/META-INF/resources/templatepage.html
+src/main/resources/META-INF/resources/templatepage2.html
+src/main/resources/META-INF/resources/templatepage3.html
+jot/src/main/resources/META-INF/resources/templatepage.html
+jot/src/main/resources/META-INF/resources/templatepage2.html
+jot/src/main/resources/META-INF/resources/templatepage3.html
+default.properties

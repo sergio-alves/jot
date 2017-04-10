@@ -15,7 +15,7 @@ public class JotSession {
     private String fullName;
 
     public enum LoginModel {
-        USER_PASSWORD, PIN
+        EMAIL, PIN
     }
 
     public String getEmail() {
