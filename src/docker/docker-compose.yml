@@ -1,0 +1,40 @@
+version: '2'
+services:
+  jot-web:
+    image: jot-web:latest
+    container_name: jot-web-service
+    build:
+      context: ./jot-web
+      dockerfile: dockerfile
+    depends_on:
+      - jot-mysql
+    links:
+      - jot-mysql
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    restart: always
+#    networks:
+#      jot-network:
+#        ipv4_address: 10.0.0.2
+  jot-mysql:
+    image: jot-mysql:latest
+    container_name: jot-mysql-service
+    expose:
+      - "3306"
+    ports:
+      - "6033:3306"
+    build:
+      context: ./jot-mysql
+      dockerfile: dockerfile
+#    networks:
+#      jot-network:
+#        ipv4_address: 10.0.0.3
+#networks:
+#  jot-network:
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: "10.0.0.0/16"
+#          gateway: "10.0.0.1"

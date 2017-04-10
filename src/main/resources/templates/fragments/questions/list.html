@@ -1,0 +1,29 @@
+<table id="questions-table" xmlns:th="http://www.thymeleaf.org" class="display" cellspacing="0" width="100%" th:fragment="questions-table">
+    <thead>
+        <tr>
+            <th style="width: 36px;">id</th>
+            <th style="width:100px">level</th>
+            <th style="width:100px">categories</th>
+            <th>question</th>
+            <th style="width: 40px;">actions</th>
+        </tr>        
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="4">Add new question</td>
+            <td><a th:href="@{/private/questions/new}"><img alt="" th:src="@{/images/light_gray/16x16/add.png}" class="add-icon" /></a></td>
+        </tr>    
+    </tfoot>
+    <tbody>
+        <tr th:each="question : ${questions}" style="height: 20px;">
+            <td th:text="${question.id}">Id</td>
+            <td th:text="${question.level.name}">levelname</td>
+            <td><span th:each="category : ${question.categories}" th:text="${category.value}" >category 1</span></td>
+            <td th:utext="${question.question}">question</td>
+            <td>
+                <a th:href="@{/admin/questions/{id}(id=${question.id})}"><img alt="" th:src="@{/images/light_gray/16x16/edit.png}" class="edit-icon" /></a> 
+                <img alt="" th:src="@{/images/light_gray/16x16/trash.png}" class="trash-icon" th:onclick="|submit(this, '@{/admin/questions/{id}(id=${question.id})}', 'DELETE')|" />
+            </td>
+        </tr>    
+    </tbody>
+</table>

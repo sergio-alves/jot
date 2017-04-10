@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/base}" layout:replace="layouts/base :: page">
+<head>
+<title>No Questionnaire found</title>
+</head>
+<body>
+    <th:block layout:fragment="header-menu-items" />
+    
+    <div class="page-content" layout:fragment="page-content">
+        <div th:replace="fragments/content/no-questionnaire :: no-questionnaire-found" ></div>
+    </div>
+    
+    <th:block layout:fragment="base-js">
+        <th:block th:replace="fragments/scripts/topnav-script :: fragment-base-js" />
+    </th:block>
+</body>
+</html>

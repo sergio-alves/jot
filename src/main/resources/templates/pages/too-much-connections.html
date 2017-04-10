@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}" layout:replace="layouts/base :: page">
+    <head>
+        <title>Aouch, too many attempts !</title>
+    </head>
+    <body>
+        <th:block layout:fragment="header-menu-items">&nbsp;</th:block>
+        <div layout:fragment="page-content" >
+            <div class="centered-medium shadowed-box">
+                <p>Sorry but you already tried to apply to the position during the last quarter.</p>
+                <table>
+                    <tr></tr>
+                </table>
+                <p>Our policy limits, to only one try per quarter, the number of attempts to the knowledge test.</p>
+                <p>Thank your for your comprehension.</p>
+            </div>
+        </div>
+    </body>
+</html>

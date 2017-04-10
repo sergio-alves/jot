@@ -1,0 +1,40 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <table id="questionnaires-table" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th style="width: 36px;">id</th>
+                <th style="width: 100px;">level</th>
+                <th>Questions List</th>
+                <th style="width: 40px;">actions</th>
+            </tr>        
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="3">Add new question</td>
+                <td><a th:href="@{/private/questions/new}"><img alt="" th:src="@{/images/light_gray/16x16/add.png}" class="add-icon" /></a></td>
+            </tr>    
+        </tfoot>
+        <tbody>
+            <tr th:each="questionnaire : ${questionnaires}" style="height: 20px;">
+                <td th:text="${questionnaire.id}">Id</td>
+                <td th:utext="${questionnaire.level.name}">level</td>
+                <td> 
+                    <th:block th:each="question : ${questionnaire.questions}" >
+                        <span class="tooltip question-id" th:text="${question.id +', '}" th:title="${'tooltip_' + question.id}" ></span>
+                        <div style="visibility: hidden; display: none;" th:id="${'tooltip_' + question.id}" th:utext="${question.question}"></div>
+                    </th:block>
+<!--                     <div class="accordion"> -->
+<!--                         <th:block th:each="question : ${questionnaire.questions}"> -->
+<!--                             <h3><span th:text="${'Question ' + question.id}"></span><div style="float: right; width: 32px;"><a th:href="@{/private/questions/{id}(id=${question.id})}"><img alt="" th:src="@{/images/light_gray/16x16/edit.png}" class="edit-icon" /></a><img alt="" th:src="@{/images/light_gray/16x16/trash.png}" class="trash-icon" th:onclick="|submit(this, '@{/private/questions/{id}(id=${question.id})}', 'DELETE')|" /></div></h3> -->
+<!--                             <div th:utext="${question.question}"></div> -->
+<!--                         </th:block>                         -->
+<!--                     </div> -->
+                </td>
+                <td>
+                    <a th:href="@{/private/questionnaires/{id}(id=${questionnaire.id})}"><img alt="" th:src="@{/images/light_gray/16x16/edit.png}" class="edit-icon" /></a> 
+                    <img alt="" th:src="@{/images/light_gray/16x16/trash.png}" class="trash-icon" th:onclick="|submit(this, '@{/private/questionnaires/{id}(id=${questionnaire.id})}', 'DELETE')|" />
+                </td>
+            </tr>    
+        </tbody>
+    </table>
+</th:block>

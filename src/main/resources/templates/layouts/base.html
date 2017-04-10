@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:fragment="page" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Base page</title>
+        <th:block layout:fragment="before-layout-css" />
+        <style type="text/css" th:fragment="base-css">
+            @IMPORT url("/css/base.css");
+            @IMPORT url("/css/top-menu.css");
+        </style>
+        <th:block layout:fragment="after-layout-css"/>
+    </head>
+    <body>
+        <div layout:fragment="base-header" class="page-header" th:fragment="base-header">
+            <ul class="topnav" id="myTopnav">
+                <li><img src="/images/logo.png" /></li>
+                <th:block th:fragment="header-menu-items" layout:fragment="header-menu-items">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#news">News</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+                </th:block>
+            </ul>
+        </div>
+        <div class="page-content" layout:fragment="page-content"></div>
+        <div class="page-footer-dummy">&nbsp;</div>
+        <div layout:fragment="base-footer" th:replace="fragments/content/footer :: base-footer">Copyright © 2017 Sergio Alves, All rights reserved</div>
+        <th:block layout:fragment="base-js">
+            <th:block th:replace="fragments/scripts/topnav-script :: fragment-base-js" />
+        </th:block>
+    </body>
+</html>

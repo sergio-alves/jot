@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1" />
+        <title>Add new Question</title>
+
+        <link rel="stylesheet" type="text/css" href="/css/main.css"></link>
+        <link rel="stylesheet" type="text/css" th:href="@{/js/jquery-ui/jquery-ui.min.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/js/jquery-ui/jquery-ui.structure.min.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/js/jquery-ui/jquery-ui.theme.min.css}" />
+        <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/dataTables.jqueryui.min.css" />
+<!--         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" /> -->
+
+        <style type="text/css">
+            .ui-widget-shadow {
+                opacity: 0.8;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="width: 100%">
+            <div id="tabs">
+                <ul>
+                    <li><img alt="" src="/images/logo.png" /></li>
+                    <li style="top: 13px;"><a href="#tabs-questions">Questions</a></li>
+                    <li style="top: 13px;"><a href="#tabs-questionnaires">Questionnaires</a></li>
+                    <li style="top: 13px;"><a href="#tabs-sessions">Sessions</a></li>
+                </ul>
+                                
+                <div id="tabs-container">
+                    <div id="tabs-questions">questions tab content</div>
+                    <div id="tabs-questionnaires">questionnaires tab content</div>
+                    <div id="tabs-sessions">sessions tab content</div>
+                </div>
+            </div>
+        </div>
+        
+        <script th:src="@{/js/jquery-ui/external/jquery/jquery.js}"></script>
+        <script th:src="@{/js/jquery-ui/jquery-ui.min.js}"></script>
+        <script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.13/js/dataTables.jqueryui.min.js"></script>
+        
+        <script type="text/javascript">
+            $( function() {
+                $( "#tabs" ).tabs({
+                  beforeLoad: function( event, ui ) {
+                    ui.jqXHR.fail(function() {
+                      ui.panel.html(
+                        "Couldn't load this tab. We'll try to fix this as soon as possible." );
+                    });
+                  },
+                  afterLoad: function (event, ui) {
+                        $('#questionnaire-table').DataTable();                    
+                  }
+                });
+                
+                $.ajax({
+                    type : "GET",
+                    url : "/admin/questions",
+                    dataType : 'html',
+                    success : function(data) {
+                        $("#tabs-questions").html(data);
+                        
+                        $( "#questions-table" ).ready(function () {
+                            $('#questions-table').DataTable();
+                        });
+                    },
+                    error : function(data) {
+                        alert("Error : "+ data);
+                    }
+                });
+                
+                $.ajax({
+                    type : "GET",
+                    url : "/admin/questionnaires",
+                    dataType : 'html',
+                    success : function(data) {
+                        $("#tabs-questionnaires").html(data);
+                        
+                        $( "#questionnaires-table" ).ready(function () {
+                            $('#questionnaires-table').DataTable();
+                        });
+                        
+                        $(".tooltip").tooltip({
+                              items: "[title]",
+                              content: function() {
+                                var element = $( this );
+                                    if ( element.is( "[title]" ) ) {
+                                        return $('#' + element.attr( "title" )).html();
+                                    }
+                              }
+                        });
+                        
+                        $( function() {
+                            $( ".accordion" ).accordion({
+                                collapsible: true,
+                                heightStyle: "content"
+                            });
+                        });     
+                    },
+                    error : function(data) {
+                        alert("Error : "+ data);
+                    }
+                });
+              });
+        </script>
+    </body>
+</html>

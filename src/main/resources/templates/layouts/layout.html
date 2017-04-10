@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:fragment="page"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8" />
+<title>Layout page</title>
+<style type="text/css" th:fragment="base-css">
+@IMPORT url("/css/base.css");
+@IMPORT url("/css/top-menu.css");
+</style>
+</head>
+<body>
+    <div class="page-header" layout:fragment="base-header" th:fragment="base-header">
+        <ul class="topnav" id="myTopnav">
+            <li><img src="/images/logo.png" /></li>
+            <th:block th:fragment="header-menu-items" layout:fragment="header-menu-items">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
+                <li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+            </th:block>
+        </ul>
+    </div>
+    <div class="page-content" layout:fragment="base-content">
+        <div class="login-form centered" layout:fragment="form-container">
+            <div>
+                <div th:if="${param.error}">Invalid username and password.</div>
+                <div th:if="${param.logout}">You have been logged out.</div>
+            </div>
+            <form th:action="@{/jot/login}" method="post">
+                <div class="form-field">
+                    <label>Username: </label> <input name="username" role="username" type="text" required="required" />
+                </div>
+                <div class="form-field">
+                    <label>password: </label> <input name="password" role="password" type="password" required="required" />
+                </div>
+                <div class="form-field">
+                    <label></label>
+                    <button name="submit" type="submit">Log In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="page-footer" th:fragment="base-footer">Copyright © 2017 Sergio Alves, All rights reserved</div>
+    <th:block layout:fragment="base-js">
+        <th:block th:fragment="fragment-base-js">
+            <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="/js/menus.js"></script>
+            <script type="text/javascript">
+													$("li")
+															.on(
+																	'click',
+																	function() {
+																		$("li")
+																				.removeClass(
+																						"selected");
+																		$(this)
+																				.addClass(
+																						"selected");
+																	})
+												</script>
+        </th:block>
+    </th:block>
+</body>
+</html>

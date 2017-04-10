@@ -1,0 +1,14 @@
+from java:8
+
+WORKDIR /usr/jot
+
+RUN mkdir bin
+RUN mkdir conf
+
+COPY online-java-test.jar bin/jot.jar
+
+WORKDIR /usr/jot/bin
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "/usr/jot/bin/jot.jar"]

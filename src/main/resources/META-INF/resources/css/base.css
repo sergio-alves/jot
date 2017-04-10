@@ -1,0 +1,117 @@
+body {
+	padding: 0px;
+	margin: 0px;
+	border: none;
+}
+
+.page-header {
+	width: 100%;
+	display: block;
+}
+
+.page-content {
+	width: 100%;
+	display: block;
+}
+
+.login-form, .shadowed-box {
+	border: 2px solid #333;
+	display: block;
+	box-shadow: 5px 5px 3px #333
+}
+
+label.mandatory:AFTER {
+	color: #f00;
+	content: "*";
+}
+
+.form-field {
+	width: 100%;
+}
+
+.form-field:FIRST-CHILD {
+	padding-top: 15px;
+}
+
+.centered-medium .form-field label {
+	width: 120px;
+}
+
+.centered-medium .form-field input {
+    width: 320px;
+}
+
+.form-field label {
+	width: 70px;
+	display: inline-block;
+	margin: 10px 10px 0px 10px;
+	height: 20px;	
+}
+
+.form-field input {
+	width: 192px;
+	height:20px;
+	display: inline;
+	margin: 5px 0px;
+	margin-right: 10px;
+}
+
+.form-field button {
+	padding: 3px;
+	margin-top: 15px;
+}
+
+.centered {
+	position: absolute;
+	width: 300px; 
+	height: 150px;
+	left:50%;
+	top:50%;
+	margin-left: -150px;
+	margin-top:-75px;
+}
+
+.centered-medium {
+	position: absolute;
+	width: 480px; 
+	height: 240px;
+	left:50%;
+	top:50%;
+	margin-left: -240px;
+	margin-top:-120px;
+}
+.horinzontal-centered-big {
+    position: absolute;
+    width: 95%; 
+    left:50%;
+    top:70px;
+    margin-left: -48%;
+    margin-bottom: 50px
+}
+
+.shadowed-box {
+	padding: 10px;
+}
+
+.page-footer-dummy {
+    position: fixed; 
+    padding-right:16px;
+    height:32px;
+    line-height: 32px;
+    width: 100%;
+}
+
+.page-footer {
+	position: fixed; 
+	right: 0px;
+	padding-right:16px;
+	text-align:right;  
+	bottom: 0px; 
+	font-size: 8pt;
+	height:32px;
+	vertical-align: middle;
+	line-height: 32px;
+	background-color: #333;
+	width: 100%;
+	color: #f2f2f2;
+}

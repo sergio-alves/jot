@@ -1,0 +1,179 @@
+body {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.container {
+	width: 800px;
+	padding-left: 50%;
+	position: absolute;
+	left: -400px;
+}
+
+.content-container {
+	width: 900px; 
+	left: -450px; 
+	position: absolute; 
+	padding: 16px; 
+	margin: 0px 50%; 
+	border: 1px solid #efefef;
+}
+
+.container .property {
+	width: 100%;
+}
+
+/* table { */
+/* 	width: 100%; */
+/* 	border: solid #efefef 1px; */
+/* 	border-collapse: collapse; */
+/* 	border-spacing: 0px; */
+/* } */
+
+/* table tr td { */
+/* 	border: solid #dedede 1px; */
+/* 	padding: 7px; */
+/* 	border-collapse: collapse; */
+/* 	border-spacing: 0px; */
+/* } */
+
+td img:HOVER {
+	cursor: pointer;
+}
+
+td img {
+	cursor: default;
+}
+
+td textarea {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	height: 200px;
+}
+
+textarea#textarea-answer-value {
+	height: 50px;
+}
+
+.label {
+	width: 30%;
+}
+
+.input {
+	
+}
+
+.commands {
+	width: 50px;
+}
+
+.answer-id {
+	width: 30px;
+}
+
+.answer-isright {
+	width: 40px;
+}
+
+.answer-value {
+	
+}
+
+.answer-commands {
+	width: 50px;
+}
+
+.commands img:HOVER {
+	cursor: pointer;
+}
+
+.commands img {
+	cursor: default;
+}
+
+.header {
+	width: 100%;
+}
+
+.login-box {
+	width: 300px;
+	left: -150px;
+	position: absolute;
+	padding: 16px;
+	margin: 0px 50%;
+	border: 1px solid #efefef;
+}
+
+.login-box-title {
+	width: 100%;
+	padding: 0px;
+	margin: 0px 0px 16px 0px;
+}
+
+.login-box-form-inputs {
+	width: 100%;
+	padding: 0px;
+	margin: 0px 0px 10px 0px;
+}
+
+.login-box-form-input-label {
+	width: 60px;
+	padding: 0px;
+	margin: 0px;
+	display: inline-block;
+}
+
+.login-box-form-input-container {
+	width: 230px;
+	display: inline-block;
+	padding: 0px;
+	margin: 0px;
+}
+
+.login-box-form-input-container input, .login-box-form-input-container button,
+	.login-box-form-input-container select {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	display: inline-block;
+}
+
+.login-box-form-input-container button {
+	width: 80px;
+}
+
+.left-menu {
+	width: 150px;
+	left: 0px;
+	display: block;
+	position: absolute;
+}
+
+.ui-tab {
+	top: 13px;
+}
+
+#tabs-container {
+	padding: 30px 90px;
+}
+
+.question-id {
+	cursor: default;
+}
+
+.question-id:HOVER {
+	cursor: help;
+}
+
+
+/* SOME JAVA STUFF */
+.comment { 
+	color:#090;
+}
+
+.keyword,.rsl .built_in,.smalltalk .class,.title,.vbscript .built_in,.winutils {
+	color:#00F;
+}
+

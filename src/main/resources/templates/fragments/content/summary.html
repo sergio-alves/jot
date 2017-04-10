@@ -1,0 +1,74 @@
+<div  class="shadowed-box centered-medium" th:fragment="summary-block">
+    <p>Dear applicant,</p>
+
+    <th:block th:switch="${loginModel}" xmlns:th="http://www.thymeleaf.org">
+        <th:block th:case = "0">
+            <th:block th:with="result=${numberOfAnswersRight / numberOfQuestions}">
+                <th:block th:switch="${succeed}">
+                    <th:block th:case="1">
+                        <p>
+                            Congratulations, your score for the test is <span th:text="${numberOfAnswersRight}"></span>/<span
+                                th:text="${numberOfQuestions}"></span>, higher than <span th:text="${successThreshold*100}"></span>%
+                            of correct answers required to be able to apply.
+                        </p>
+                        <p>
+                            You get a result higher enough to pretend to send your CV. Please use the following form to send us
+                            your CV. <span style="color: red;">Only one file (ZIP) with size &lt; 10MB</span>
+                        </p>
+                        <form action="/jot/submit-cv" method="post" enctype="application/x-www-form-urlencoded">
+                            <div>
+                                <div style="margin-bottom: 10px;">
+                                    <input type="file" id="applicant-cv" />
+                                </div>
+                                <div>
+                                    <button>Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </th:block>
+                    <th:block th:case="0">
+                        <p>
+                            Your score for the test is <span th:text="${numberOfAnswersRight}"></span>/<span
+                                th:text="${numberOfQuestions}"></span>
+                        </p>
+                        <p>
+                            To be allowed to apply, we are requiring people to answer correctly to <span
+                                th:text="${successThreshold * 100}"></span>% of the questions.
+                        </p>
+                        <p>Keep studying and improving your java skills and try your chance later (maximum 1 time per
+                            quarter)</p>
+                    </th:block>
+                </th:block>
+            </th:block>
+        </th:block>
+        <th:block th:case = "1" >
+            <th:block th:with="result=${numberOfAnswersRight / numberOfQuestions}">
+                <th:block th:switch="${succeed}">
+                    <th:block th:case="1">
+                        <p>
+                            Congratulations, your score for the test is <span th:text="${numberOfAnswersRight}"></span>/<span
+                                th:text="${numberOfQuestions}"></span>, higher than <span th:text="${successThreshold*100}"></span>%
+                            of correct answers required to be able to apply.
+                        </p>
+                        <p>
+                            An email will be send shortly to Utopix HR to validate your assessment. We will come back to you soon, for the next steps.
+                        </p>
+                    </th:block>
+                    <th:block th:case="0">
+                        <p>
+                            Your score for the test is <span th:text="${numberOfAnswersRight}"></span>/<span
+                                th:text="${numberOfQuestions}"></span>
+                        </p>
+                        <p>
+                            To be allowed to apply, we are requiring people to answer correctly to <span
+                                th:text="${successThreshold * 100}"></span>% of the questions.
+                        </p>
+                        <p>Keep studying and improving your java skills and try your chance later</p>
+
+                    </th:block>
+                </th:block>
+            </th:block>
+        </th:block>
+    </th:block>
+    <p>Sincerely yours</p>
+</div>

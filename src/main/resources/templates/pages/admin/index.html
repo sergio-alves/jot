@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/base}" layout:replace="layouts/base :: page">
+<head>
+    <title>JOT, let's start testing</title>
+    
+    <th:block layout:fragment="after-layout-css">
+
+        <link rel="stylesheet" type="text/css" href="/css/main.css"></link>
+        <link rel="stylesheet" type="text/css" th:href="@{/js/jquery-ui/jquery-ui.min.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/js/jquery-ui/jquery-ui.structure.min.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/js/jquery-ui/jquery-ui.theme.min.css}" />
+        <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/dataTables.jqueryui.min.css" />
+<!--         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" /> -->
+
+        <style type="text/css">
+            .ui-widget-shadow {
+                opacity: 0.8;
+            }
+        </style>    
+    </th:block>
+    
+</head>
+<body>
+    <th:block layout:fragment="header-menu-items">
+        <li><a href="#questions">Questions</a></li>
+        <li><a href="#questionnaires">Questionnaires</a></li>
+        <li><a href="#sessions">Sessions</a></li>
+    </th:block>
+    
+    <div layout:fragment="page-content">
+        <div th:replace="fragments/content/admin-content :: admin-content"></div>
+    </div>
+    
+    <th:block layout:fragment="base-js">
+        <th:block th:replace="fragments/scripts/topnav-script :: fragment-base-js" >js stuff</th:block>
+        <script th:src="@{/js/jquery-ui/jquery-ui.min.js}"></script>
+        <script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.13/js/dataTables.jqueryui.min.js"></script>
+        
+        <script type="text/javascript">
+            function loadQuestionsData() {
+                $.ajax({
+                    type : "GET",
+                    url : "/admin/questions",
+                    dataType : 'html',
+                    success : function(data) {
+                        $("#admin-content").html(data);
+                        
+                        $( "#admin-content").ready(function () {
+                            $('#questions-table').DataTable();
+                        });
+                    },
+                    error : function(data) {
+                        alert("Error : "+ data);
+                    }
+                });
+            }
+        
+            function loadQuestionnairesData() {
+                $.ajax({
+                    type : "GET",
+                    url : "/admin/questionnaires",
+                    dataType : 'html',
+                    success : function(data) {
+                        $("#admin-content").html(data);
+                        
+                        $( "#admin-content" ).ready(function () {
+                            $('#questionnaires-table').DataTable();
+                        });
+                        
+                        $(".tooltip").tooltip({
+                              items: "[title]",
+                              content: function() {
+                                var element = $( this );
+                                    if ( element.is( "[title]" ) ) {
+                                        return $('#' + element.attr( "title" )).html();
+                                    }
+                              }
+                        });
+                        
+                        $( function() {
+                            $( ".accordion" ).accordion({
+                                collapsible: true,
+                                heightStyle: "content"
+                            });
+                        });     
+                    },
+                    error : function(data) {
+                        alert("Error : "+ data);
+                    }
+                });            
+            }
+        
+            $( function() {
+                $("li").on('click', function() {
+                    $("li").removeClass("selected");
+                    $(this).addClass("selected");
+                        
+                    if( $(this).text() == "Questions") {
+                        loadQuestionsData();
+                    } else if($(this).text() == "Questionnaires"){
+                        loadQuestionnairesData();
+                    }
+                })
+            });
+        </script>
+    </th:block>
+</body>
+</html>

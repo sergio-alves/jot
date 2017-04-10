@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Add new Question</title>
+        <style type="text/css" th:replace="fragments/header :: css-header"></style>
+            
+        <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header">the header stuff will be arrive here</div>
+        
+        <div th:replace="fragments/admin/left-menu :: admin-left-menu" >The left menu stuff</div>
+        
+        <div class="container">
+            <h2>Question</h2>        
+            <form action="#" th:action="@{/admin/questions}" th:object="${question}" name="start-mcq" method="post">
+                <table class="form">
+                    <tr>
+                        <td class="label">Id</td>
+                        <td class="input" th:text="${id}" />
+                        <td class="commands"/>
+                    </tr>
+                    <tr>
+                        <td class="label">Question</td>
+                        <td class="input"><textarea id="textarea-question" th:field="*{question}"></textarea></td>
+                        <td class="commands"/>
+                    </tr>
+                    <tr>
+                        <td class="label">Level</td>
+                        <td class="input">            
+                            <select th:field="*{level}" >
+                                <option th:each="level : ${levelsList}" th:value="${level.id}" th:text="${level.name}" th:if="${level.id != question.level.id }" />    
+                                <option th:each="level : ${levelsList}" th:value="${level.id}" th:text="${level.name}" th:if="${level.id == question.level.id}" selected="selected" />                                        
+                            </select>
+                        </td>
+                        <td class="commands"/>
+                    </tr>
+                    <tr>
+                        <td class="label">categories</td>
+                        <td>
+                            <select multiple="multiple" th:field="*{categories}" >
+                                <option th:each="category : ${categoriesList}" th:value="${category.id}" th:text="${category.name}" th:if="${category.id != question.category.id }" />    
+                                <option th:each="category : ${categoriesList}" th:value="${category.id}" th:text="${category.name}" th:if="${category.id == question.category.id }" selected="selected" />                                        
+                            </select>                        
+                        </td>
+                        <td class="commands" />    
+                    </tr>                                        
+                    <tr>
+                        <td class="label">Time to Answer in seconds</td>
+                        <td class="input"><input th:field="*{secondsToAnswer}" value="30" /></td>
+                        <td class="commands"/>                
+                    </tr>
+                    <tr>
+                        <td class="label">Explanation</td>
+                        <td class="input"><textarea id="textarea-answer" th:field="*{explanation}"></textarea></td>
+                        <td class="commands"/>                
+                    </tr>
+                    <tr>
+                        <td class="label"></td>
+                        <td class="input"></td>
+                        <td class="commands"><img alt="" th:src="@{/images/light_gray/16x16/edit.png}" /><img alt="" th:src="@{/images/light_gray/16x16/trash.png}" /></td>                
+                    </tr>
+                </table>
+            </form>
+            <h2>Answers</h2>
+            <form id="add-answer-form" th:object="${answer}" th:action="@{/admin/questions/{id}/answers(id=${question.id})}" method="post">    
+                <div id="answers">
+                    <table class="form">
+                        <tr>
+                            <th class="answer-id">id</th>
+                            <th class="answer-isright">Is right</th>
+                            <th class="answer-value">Answer value</th>
+                            <th class="answer-commands">&nbsp;</th>
+                        </tr>
+                        <tr th:each="item : ${question.answers}">
+                            <td class="answer-id" th:text="${item.answerId}" />
+                            <td class="answer-isright" th:text="${item.isRightAnswer}" />
+                            <td class="answer-value" th:utext="${item.answer}" />
+                            <td class="answer-commands"><img alt="" th:src="@{/images/light_gray/16x16/edit.png}" /><img alt="" th:src="@{/images/light_gray/16x16/trash.png}" /></td>
+                        </tr>
+                        <tr>
+                            <td class="answer-id"/>
+                            <td class="answer-isright"><input name="answerright" id="answer-right" type="checkbox" th:field="*{isRightAnswer}" /></td>
+                            <td class="answer-value"><textarea id="textarea-answer-value" name="answercontent" th:field="*{answer}"></textarea></td>
+                            <td class="answer-commands"><img alt="" th:src="@{/images/light_gray/16x16/add.png}" onclick="submit();" /></td>
+                        </tr>
+                    </table>
+                </div>
+            
+                <div th:replace="fragments/footer :: footer">The footer stuff will arrive here</div>            
+            </form>
+        </div>
+
+
+        <th:block th:replace="fragments/header :: js-header" ></th:block>
+        
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
+        <script type="text/javascript">
+            function submit(item, url, method, data) {
+                var formData = '"isRightAnswer":"' + $("#answer-right").val()
+                        + '", "answer":"' + $("#answer-content").val() + '"';
+        
+                $.ajax({
+                    type : method,
+                    url : url,
+                    dataType : 'json',
+                    data : formData,
+                    success : function(data) {
+        
+                    },
+                    error : function(data) {
+        
+                    }
+                });
+            }
+        </script>
+
+        
+        <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            bkLib.onDomLoaded(function () {
+                new nicEditor({fullPanel : true}).panelInstance('textarea-question');
+                new nicEditor({fullPanel : true}).panelInstance('textarea-answer');
+                new nicEditor({fullPanel : true}).panelInstance('textarea-answer-value');
+            });
+        </script>
+            
+            
+        <script type="text/javascript">
+            $("#add-answer-form").submit(
+            function(event) {
+                $form = $(this);
+                alert($form.attr('url'));
+
+                $.ajax({
+                    type : "POST",
+                    url : $form.attr('url'),
+                    dataType : 'json',
+                    success : function(data) {
+
+                    },
+                    error : function(data) {
+
+                    }
+                });
+
+                event.preventDefault();
+            });
+        </script>
+    </body>
+</html>

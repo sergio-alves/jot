@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<title>Add new Question</title>
+</head>
+<body>
+	<div style="width: 100%">
+		<form action="#" th:action="@{/question}" th:object="${ojtSession}" name="start-mcq" method="post">
+			<div
+				style="width: 300px; left: -150px; position: absolute; padding: 16px; margin: 0px 50%; border: 1px solid #efefef;">
+				<div style="width: 100%; padding: 0px; margin: 0px 0px 16px 0px;">Please
+					set your e-mail and questionnaire level</div>
+				<div>
+					<div style="width: 100%; padding: 0px; margin: 0px 0px 10px 0px;">
+						<label for="email"
+							style="width: 96px; padding: 0px; margin: 0px; display: inline-block;">Email:
+						</label> <input type="email" th:field="*{email}"
+							style="width: 200px; padding: 0px; margin: 0px; display: inline-block;" />
+					</div>
+					<div style="width: 100%; margin: 0px 0px 10px 0px;" id="levels-selector">
+						<label
+							style="width: 96px; padding: 0px; margin: 0px; display: inline-block;"
+							for="level">Level :</label> 
+							<select th:field="*{level}" style='width: 200px; padding: 0px; margin: 0px; display: inline-block;' >
+								<option th:each="level : ${levels}" th:value="${level.id}" th:text="${level.name}" />
+							</select>
+					</div>
+					<div style="width: 100%; margin: 0px 0px 10px 0px;">
+						<label
+							style="width: 96px; padding: 0px; margin: 0px; display: inline-block;"></label>
+						<button type="submit">Submit</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

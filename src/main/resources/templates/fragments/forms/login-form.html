@@ -1,0 +1,18 @@
+<div xmlns:th="http://www.thymeleaf.org" class="login-form centered" th:fragment="login-form">
+    <div>
+        <div th:if="${param.error}">Invalid username and password.</div>
+        <div th:if="${param.logout}">You have been logged out.</div>
+    </div>
+    <form th:action="@{/jot/login}" method="post">
+        <div class="form-field">
+            <label>Username: </label> <input name="username" role="username" type="text" required="required" />
+        </div>
+        <div class="form-field">
+            <label>password: </label> <input name="password" role="password" type="password" required="required" />
+        </div>
+        <div class="form-field">
+            <label></label>
+            <button name="submit" type="submit">Log In</button>
+        </div>
+    </form>
+</div>

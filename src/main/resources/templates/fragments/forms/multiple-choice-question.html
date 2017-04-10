@@ -1,0 +1,21 @@
+<div xmlns:th="http://www.thymeleaf.org" class="horinzontal-centered-big shadowed-box" th:fragment="mcq">
+    <form th:action="@{/jot/mcq}" th:object="${questionAnswer}" method="post">
+        <input type="hidden" th:field="*{questionId}" />
+        <div style="width: 100%; padding: 0px; margin: 0px 0px 16px 0px;">
+            <div style="display: inline-block; vertical-align: top;" th:utext="${mcqQuestion}">The question</div>
+        </div>
+        <div style="width: 100%; padding: 0px; margin: 0px 0px 16px 0px;">
+            <fieldset name="answersFS">
+                <th:block th:each="answer : ${mcqAnswers}">
+                    <input type="checkbox" th:field="*{answers}" th:value="${answer.answerId}"
+                        th:utext="${answer.answer}" style="text-align: left; padding: 5px 0px;" />
+                    <br />
+                </th:block>
+            </fieldset>
+        </div>
+        <div style="width: 100%; margin: 0px 0px 10px 0px;">
+            <label style="width: 96px; padding: 0px; margin: 0px; display: inline-block;"></label>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>

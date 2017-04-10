@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+
+<!-- <script src="/js/tinymce/tinymce.min.js"></script> -->
+<script>
+// 	tinymce.init({
+// 		selector : 'textarea'
+// 	});
+</script>
+</head>
+<body>
+	<div style="width: 800px;">
+		<form action="#" th:action="@{/admin/questions}"
+			th:object="${newquestion}" name="start-mcq" method="post">
+			<div>
+				<label>Question</label>
+				<textarea th:field="*{question}" id="question" style="width: 100%"></textarea>
+			</div>
+			<div>
+				<label>Time to Answer in seconds</label> <input
+					th:field="*{secondsToAnswer}" value="30" />
+			</div>
+			<div>
+				<label>Explanation</label>
+				<textarea th:field="*{explanation}" id="explanation"></textarea>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+			
+<!-- 			<div> -->
+<!-- 				<label>Answers</label> -->
+				
+<!-- 				<fieldset> -->
+<!-- 					<div th:each="item, stat : *{answers}" class="answerrow"> -->
+<!-- 						<label th:for="${'answerIsRightAnswer-'+stat.index}">Is right Answer</label> <input -->
+<!-- 							type="checkbox" class="form-control isrightanswer" name="answerIsRightAnswer" -->
+<!-- 							th:field="*{answers[__${stat.index}__].answerIsRightAnswer}" -->
+<!-- 							th:id="${'answerIsRightAnswer-'+stat.index}" /> -->
+<!-- 						<label th:for="${'answerResource-' + stat.index}">Value</label> <textarea -->
+<!-- 							class="form-control isrightanswer" name="answerResource" -->
+<!-- 							th:field="*{answers[__${stat.index}__].answerResource}" -->
+<!-- 							th:id="${'answerResource-' + stat.index}" ></textarea> -->
+							
+<!-- 							<button>Submit</button> -->
+<!-- 					</div> -->
+<!-- 				</fieldset> -->
+<!-- 			</div> -->
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<div xmlns:th="http://www.thymeleaf.org" class="login-form centered" th:fragment="session-form">
+    <form th:action="@{/jot/}" th:object="${jotSession}" name="start-mcq" method="post">
+        <th:block xmlns:th="http://www.thymeleaf.org" th:switch="${loginModel}" >
+            <th:block th:case = "${0}">
+                <div class="form-field">
+                    <label class="mandatory">Email: </label>
+                    <input type="email" th:field="*{email}" required="required" />
+                </div>
+                <div class="form-field">
+                    <label class="mandatory">Level: </label> 
+                    <select th:field="*{level}" >
+                        <option th:each="level : ${levels}" th:value="${level.id}" th:text="${level.name}" />
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label></label>
+                    <button name="submit" type="submit">Log In</button>
+                </div>
+            </th:block>
+            <th:block th:case = "${1}">
+                <div class="form-field">
+                    <label class="mandatory">Email: </label>
+                    <input type="email" th:field="*{email}" required="required" />
+                </div>
+                <div class="form-field">
+                    <label class="mandatory">Pin: </label> 
+                    <input type="text" th:field="*{pin}" required="required" />
+                </div>
+                <div class="form-field">
+                    <label></label>
+                    <button name="submit" type="submit">Start Assessment</button>
+                </div>
+            </th:block>
+            <th:block th:case = "*">
+                No switch value for <span th:text="${loginModel}"></span>
+            </th:block>        
+        </th:block>
+    </form>
+</div>    

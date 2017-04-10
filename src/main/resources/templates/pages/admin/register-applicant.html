@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/base}" layout:replace="layouts/base :: page">
+<head>
+    <title>Register applicant</title>
+    
+    <th:block layout:fragment="after-layout-css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css"></link>
+    </th:block>
+</head>
+<body>
+    <th:block layout:fragment="header-menu-items">
+        <li class="selected"><a href="#questions">Register applicant</a></li>
+    </th:block>
+    
+    <div layout:fragment="page-content">
+        <div th:replace="fragments/forms/register-applicant :: register-applicant"></div>
+    </div>
+    
+    <th:block layout:fragment="base-js">
+        <th:block th:replace="fragments/scripts/topnav-script :: fragment-base-js" >js stuff</th:block>
+    </th:block>
+</body>
+</html>

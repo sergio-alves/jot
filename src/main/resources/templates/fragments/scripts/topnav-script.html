@@ -1,0 +1,12 @@
+<th:block th:fragment="fragment-base-js" xmlns:th="http://www.thymeleaf.org">
+    <script th:src="@{/js/jquery-ui/external/jquery/jquery.js}"></script>
+    <script type="text/javascript" src="/js/menus.js"></script>
+    <script type="text/javascript">
+    //@formatter:off
+        $("li").on('click', function() {
+            $("li").removeClass("selected");
+            $(this).addClass("selected");
+        })
+    //@formatter:on
+ </script>
+</th:block>

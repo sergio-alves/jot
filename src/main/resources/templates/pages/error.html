@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}" layout:replace="layouts/base :: page">
+    <head>
+        <title>Aouch, too many attempts !</title>
+    </head>
+    <body>
+        <th:block layout:fragment="header-menu-items">&nbsp;</th:block>
+        <div layout:fragment="page-content" >
+            <div class="centered-medium shadowed-box">
+                <div th:utext="${errorcontent}" />
+            </div>
+        </div>
+    </body>
+</html>

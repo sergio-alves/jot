@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}" layout:replace="layouts/base :: page">
+<head>
+<title th:text="${'Multiple Choices Question : ' + currentQuestionNumber}"></title>
+</head>
+<body>
+    <th:block layout:fragment="header-menu-items">
+        <li class="counter" th:text="${'Question ' + currentQuestionNumber +' / '+ questionsCount}">1</li>
+        <li class="countdown no-link to-right"></li>
+    </th:block>
+    
+    <div class="page-content" layout:fragment="page-content">
+        <div th:replace="fragments/forms/multiple-choice-question :: mcq">Replace me</div>
+    </div>
+    
+    <th:block layout:fragment="base-js">
+        <th:block th:replace="fragments/scripts/topnav-script :: fragment-base-js" />
+        <script th:inline="javascript">
+             /*<![CDATA[*/
+                var counter = 0;
+                var maxSeconds = [[${mcqSecondsToAnswer}]];
+                var vstyle = "black";
+                var v70 =  0.7 * maxSeconds;
+                var v90 =  0.9 * maxSeconds;
+                
+                $(function(){
+                    var interval = setInterval(function() {
+                        counter++;
+                        // Display 'counter' wherever you want to display it.
+                        if (counter == maxSeconds) {
+                            // Display a login box
+                            clearInterval(interval);
+                            $("form").submit();
+                        }
+    
+                        
+                        if (counter > v90) {
+                            vstyle = "red";
+                        } else if (counter < v70) {
+                        }else {
+                            vstyle = "orange";
+                        }
+                        
+                        var txt = '<span class="' + vstyle + '">Remaining : ' + (maxSeconds-counter) + ' second' + ((maxSeconds-counter)==1? '': 's' ) + '</span>';
+                        $(".countdown").html(txt);
+                    }, 1000);
+                        
+                })
+    /*]]>*/     
+            </script>
+    </th:block>
+</body>
+</html>

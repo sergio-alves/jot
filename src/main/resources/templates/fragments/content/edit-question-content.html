@@ -1,0 +1,85 @@
+<div xmlns:th="http://www.thymeleaf.org" class="horinzontal-centered-big shadowed-box" th:fragment="edit-content"
+    id="edit-content">
+    <h2>Question</h2>
+    <form th:action="@{/admin/questions}" th:object="${question}" name="start-mcq" method="post">
+        <table class="form" style="width:100%">
+            <tr>
+                <td class="label">Id</td>
+                <td class="input" th:text="${question.id}" />
+                <td class="commands" />
+            </tr>
+            <tr>
+                <td class="label">Question</td>
+                <td class="input"><textarea id="textarea-question" th:field="*{question}"></textarea></td>
+                <td class="commands" />
+            </tr>
+            <tr>
+                <td class="label">Level</td>
+                <td class="input">
+                    <select th:field="*{level}">
+                        <option th:each="level : ${levelsList}" th:value="${level.id}" th:text="${level.name}" th:if="${level.id != question.level.id }" />
+                        <option th:each="level : ${levelsList}" th:value="${level.id}" th:text="${level.name}" th:if="${level.id == question.level.id}" selected="selected" />
+                    </select>
+                </td>
+                <td class="commands" />
+            </tr>
+            <tr>
+                <td class="label">categories</td>
+                <td>
+                    <select multiple="multiple" th:field="*{categories}">
+                        <option th:each="category : ${categoriesList}" th:value="${category.key}" th:text="${category.value}" th:if="${!#maps.containsKey(question.categories, ${category.key})}" />
+<!--                         <option th:each="category : ${categoriesList}" th:value="${category.key}" th:text="${category.value}" th:if="${question.categories.containsKey(${category.key})" selected="selected" /> -->
+                    </select>
+                </td>
+                <td class="commands" />
+            </tr>
+            <tr>
+                <td class="label">Time to Answer in seconds</td>
+                <td class="input"><input th:field="*{secondsToAnswer}" value="30" /></td>
+                <td class="commands" />
+            </tr>
+            <tr>
+                <td class="label">Explanation</td>
+                <td class="input"><textarea id="textarea-answer" th:field="*{explanation}"></textarea></td>
+                <td class="commands" />
+            </tr>
+            <tr><td colspan="3"  /></tr>
+            <tr>
+                <td class="label"></td>
+                <td class="input"></td>
+                <td class="commands"><img alt="" th:src="@{/images/light_gray/16x16/edit.png}" /><img alt=""
+                    th:src="@{/images/light_gray/16x16/trash.png}" /></td>
+            </tr>
+        </table>
+    </form>
+<!--     <h2>Answers</h2> -->
+<!--     <form id="add-answer-form" th:object="${answer}" th:action="@{/admin/questions/{id}/answers(id=${question.id})}" -->
+<!--         method="post"> -->
+<!--         <div id="answers"> -->
+<!--             <table class="form"> -->
+<!--                 <tr> -->
+<!--                     <th class="answer-id">id</th> -->
+<!--                     <th class="answer-isright">Is right</th> -->
+<!--                     <th class="answer-value">Answer value</th> -->
+<!--                     <th class="answer-commands">&nbsp;</th> -->
+<!--                 </tr> -->
+<!--                 <tr th:each="item : ${question.answers}"> -->
+<!--                     <td class="answer-id" th:text="${item.answerId}" /> -->
+<!--                     <td class="answer-isright" th:text="${item.isRightAnswer}" /> -->
+<!--                     <td class="answer-value" th:utext="${item.answer}" /> -->
+<!--                     <td class="answer-commands"><img alt="" th:src="@{/images/light_gray/16x16/edit.png}" /><img -->
+<!--                         alt="" th:src="@{/images/light_gray/16x16/trash.png}" /></td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                     <td class="answer-id" /> -->
+<!--                     <td class="answer-isright"><input name="answerright" id="answer-right" type="checkbox" -->
+<!--                         th:field="*{isRightAnswer}" /></td> -->
+<!--                     <td class="answer-value"><textarea id="textarea-answer-value" name="answercontent" -->
+<!--                             th:field="*{answer}"></textarea></td> -->
+<!--                     <td class="answer-commands"><img alt="" th:src="@{/images/light_gray/16x16/add.png}" -->
+<!--                         onclick="submit();" /></td> -->
+<!--                 </tr> -->
+<!--             </table> -->
+<!--         </div> -->
+<!--     </form> -->
+</div>

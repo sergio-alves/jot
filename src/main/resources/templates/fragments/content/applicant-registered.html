@@ -1,0 +1,5 @@
+<div xmlns:th="http://www.thymeleaf.org" class="shadowed-box centered-medium" th:fragment="applicant-registered">
+    <p>The applicant <a th:href="${'mailto:'  + applicant.email}" href="mailto:sergio.alves@utopix.ch"><span th:text="${applicant.fullName}" >Sergio Alves</span></a> was successfuly registered with pin :</p>
+    <p style="padding: 0px; font-size: 30pt" th:text="${#numbers.formatInteger(applicant.pin, 4)}">1345</p>
+    <p>Do not forget to communicate the following pin to the applicant. The email registered as well as the above pin will be necessary to start the assessment.</p>
+</div>

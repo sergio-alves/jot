@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/base}" layout:replace="layouts/base :: page">
+<head>
+<title>Summary</title>
+</head>
+<body>
+    <th:block layout:fragment="header-menu-items" />
+    
+    <div class="page-content" layout:fragment="page-content">
+        <div  th:replace="fragments/content/summary :: summary-block" ></div> 
+    </div>
+    <th:block layout:fragment="base-js">
+        <th:block th:replace="fragments/scripts/topnav-script :: fragment-base-js" />
+        <script type="text/javascript">
+            //binds to onchange event of your input field
+            // @formatter:off
+            $('#applicant-cv').bind('change', function() {
+                //this.files[0].size gets the size of your file.
+                if (this.files[0].size > 10485760) {
+                	alert("Files are limited to 10 MB");
+                	$('#applicant-cv').val('');
+                }
+            });
+            
+            jQuery("form").submit(function(e) {
+                var self = this;
+            
+                if (self.get(0).size > 10485760) {
+                	alert("Files are limited to 10 MB");
+                	self.reset();
+                	e.preventDefault();
+                	return false;
+                } else {
+                	return true;
+                }
+            });
+            // @formatter:on
+        </script>
+    </th:block>
+</body>
+</html>
