@@ -105,11 +105,11 @@ public class SendmailService {
         properties.setProperty("mail.smtp.host", host);
         properties.setProperty("mail.user", smtpUsername);
         properties.setProperty("mail.password", smtpPassword);
-        properties.setProperty("mail.smtp.starttls.enable", "true");
-        properties.setProperty("mail.smtp.auth", "true");
-        properties.setProperty("mail.smtp.socketFactory.port", "587");
-        properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        properties.setProperty("mail.smtp.socketFactory.fallback", "false");
+        //properties.setProperty("mail.smtp.starttls.enable", "true");
+        //properties.setProperty("mail.smtp.auth", "true");
+        //properties.setProperty("mail.smtp.socketFactory.port", "587");
+        //properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        //properties.setProperty("mail.smtp.socketFactory.fallback", "false");
 
         // Get the default Session object.
         Session session = Session.getDefaultInstance(properties);
