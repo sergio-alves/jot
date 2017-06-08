@@ -129,8 +129,6 @@ public class AdminController {
             @ModelAttribute Answer answer) throws Exception {
         LOGGER.debug("serving POST /admin/questions/{id}/answers");
         mcqS.addNewAnswerToQuestion(answer, id);
-
-        // return "redirect:/admin/questions/" + id;
         return ResponseEntity.ok("");
     }
 

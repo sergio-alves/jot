@@ -10,7 +10,9 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
+import ch.santosalves.jot.dtos.Answer;
 import ch.santosalves.jot.dtos.JotSession;
 import ch.santosalves.jot.dtos.JotSession.LoginModel;
 import ch.santosalves.jot.dtos.LoggedSession;
@@ -39,6 +42,7 @@ import ch.santosalves.jot.dtos.PreRegisteredApplication;
 import ch.santosalves.jot.dtos.QuestionAnswer;
 import ch.santosalves.jot.dtos.Questionnaire;
 import ch.santosalves.jot.entities.LogSession;
+import ch.santosalves.jot.repositories.McqAnswerRepository;
 import ch.santosalves.jot.services.LevelsService;
 import ch.santosalves.jot.services.LogSessionsService;
 import ch.santosalves.jot.services.PreRegisteredApplicationsService;
@@ -66,6 +70,9 @@ public class JotController {
     @Autowired
     QuestionnairesService qs;
 
+    @Autowired
+    McqAnswerRepository as;
+    
     @Autowired
     private SpringTemplateEngine templateEngine;
 
@@ -247,10 +254,43 @@ public class JotController {
         return "pages/mcq";
     }
 
+    public static class ResponseAnswer {
+    	private String question;
+    	private List<String> responses;
+    	private String response;
+    	private String explanation;
+		public String getQuestion() {
+			return question;
+		}
+		public void setQuestion(String question) {
+			this.question = question;
+		}
+		public List<String> getResponses() {
+			return responses;
+		}
+		public void setResponses(List<String> responses) {
+			this.responses = responses;
+		}
+		public String getResponse() {
+			return response;
+		}
+		public void setResponse(String response) {
+			this.response = response;
+		}
+		public String getExplanation() {
+			return explanation;
+		}
+		public void setExplanation(String explanation) {
+			this.explanation = explanation;
+		}
+    }
+    
     @RequestMapping("/summary")
     public String summary(Model model, HttpSession session) {
         JotSession jotSession = (JotSession) session.getAttribute("jotSession");
-
+        
+        List<ResponseAnswer> raList = new ArrayList<>();
+        
         if (!isAuthorized(session)) {
             return "redirect:/jot/";
         }
@@ -260,23 +300,35 @@ public class JotController {
 
         MultipleChoicesQuestion mcq = null;
         int right = 0;
-
+        ResponseAnswer ra = new ResponseAnswer();
         for (int i = 0; i < questionnaire.getQuestions().size(); i++) {
             mcq = questionnaire.getQuestions().get(i);
 
+            ra.setQuestion(mcq.getQuestion());
+            ra.setExplanation(mcq.getExplanation());
             // for each question in questionnaire
 
             // get list of answered responses for the question
             List<Integer> answer = jotSession.getAnswers().get(mcq.getId());
             List<Integer> realAnsers = new ArrayList<>();
 
+            
+            Optional<Answer> optAnswer = mcq.getAnswers().stream().filter(predicate->predicate.getAnswerId()==answer.get(0)).findFirst();
+            
+            ra.setResponse(optAnswer.isPresent() ? optAnswer.get().getAnswer() : "Answer not found");
+            
+            List<String> answersList = mcq.getAnswers().stream().map(a->a.getAnswer()).collect(Collectors.toList());
+            ra.setResponses(answersList);
+
+            raList.add(ra);
+            
             mcq.getAnswers().forEach(a -> {
                 if (a.getIsRightAnswer()) {
                     realAnsers.add(a.getAnswerId());
                 }
             });
 
-            if (answer != null) {
+            if (!answer.isEmpty()) {
                 Collections.sort(answer);
                 Collections.sort(realAnsers);
 
@@ -287,6 +339,9 @@ public class JotController {
             }
         }
 
+        
+        
+        
         boolean succeed = (right) > SUCCESS_THRESHOLD * questionnaire.getQuestionsCount();
 
         model.addAttribute("loginModel", loginModel.ordinal());
@@ -297,7 +352,7 @@ public class JotController {
 
         if (loginModel.equals(LoginModel.PIN)) {
             pras.setAssessmentStatus(succeed, jotSession.getEmail(), "" + jotSession.getPin());
-            sendmail.sendResultsEmail(jotSession, succeed);
+            sendmail.sendResultsEmail(jotSession, succeed, right, SUCCESS_THRESHOLD * questionnaire.getQuestionsCount(), raList);
         }
 
         return "pages/summary";
