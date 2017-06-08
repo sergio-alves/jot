@@ -1,5 +1,6 @@
 package ch.santosalves.jot.services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -53,19 +54,20 @@ public class SendmailService {
 
     public void sendResultsEmail(JotSession session, boolean success, int right, double average, List<ResponseAnswer> raList) {
         // Recipient's email ID needs to be mentioned.
-        String subject = "Congratulations, you successfuly achieved the JOT assessment.";
+        String subject = "Utopix self-assessment results";
 
         String fullname = session.getFullName();
         String email = session.getEmail();
         String pin = "" + session.getPin();
-        List<String> asList = Arrays.asList(email);
+        List<String> asList = new ArrayList<>();
+        asList.add(email);
         asList.addAll(Arrays.asList(hrEmail.split(",")));
-        
+
         StringBuilder sb = new StringBuilder();
         sb.append("<p>Dear " + fullname + ",</p>");
         sb.append("<p>");
         if(success) {
-            sb.append("We inform you that you successfuly achieved the assessment.<br/>Shortly we will come back to you with the next step.");
+            sb.append("We inform you that you successfully achieved the assessment.<br/>Shortly we will come back to you to explain the next steps.");
         }else{
             sb.append("We inform that you, unfortunately, <b>didn't achieved</b> the assessment.<br/> Below you test results.");
             sb.append("<p>You answered correctly to "+right+" questions over " + session.getAnswers().size() + " available.</p>");
@@ -84,7 +86,8 @@ public class SendmailService {
 
     public void sendApplicationMail(String fullname, String email, String pin) {
         // Recipient's email ID needs to be mentioned.
-        List<String> asList = Arrays.asList(email);
+        List<String> asList = new ArrayList<>();
+        asList.add(email);
         asList.addAll(Arrays.asList(hrEmail.split(",")));
         
         String subject = "Self-assessment Session created";
@@ -101,7 +104,7 @@ public class SendmailService {
         sb.append("Pin : " + pin + "<br/>");
         sb.append("</p>");
         sb.append("<p>");
-        sb.append("Please not this assessment is time limited: you have " + (pinValidity > 1 ? pinValidity + " days" : pinValidity + " day") + " to complete the test upon reception of this email.");
+        sb.append("Please note this assessment is time limited: you have " + (pinValidity > 1 ? pinValidity + " days" : pinValidity + " day") + " to complete the test upon reception of this email.");
         sb.append("<p>Best regards,</p>");
         sb.append("<p>Utopix Team</p>");
         sb.append("</p>");

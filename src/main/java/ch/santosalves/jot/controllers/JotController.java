@@ -227,6 +227,8 @@ public class JotController {
         // Add response to the OJT session object
         jotSession.getAnswers().put(questionAnswer.getQuestionId(), questionAnswer.getAnswers());
 
+        LOGGER.info("The user " + jotSession.getFullName() + " answered " + questionAnswer.getAnswers().stream().map(mapper-> "ID : "+ mapper +" " + as.findOne(mapper).getResource().getContent()).collect(Collectors.joining(", ")) + " for the question id " + questionAnswer.getQuestionId());
+
         if (questionnaire.getQuestionsCount() > jotSession.getCurrentQuestionNumber()) {
             // Get next question
             MultipleChoicesQuestion mcq = putQuestionToModelAndIncrementQuestionsCounter(jotSession, questionnaire);
