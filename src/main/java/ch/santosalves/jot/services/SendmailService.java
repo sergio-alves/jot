@@ -26,6 +26,9 @@ public class SendmailService {
     @Value("${mail.smtp.host}")
     private String smtpHost;
 
+    @Value("${mail.smtp.port}")
+    private String smtpPort;
+
     @Value("${mail.user}")
     private String smtpUsername;
 

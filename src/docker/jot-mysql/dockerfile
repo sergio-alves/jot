@@ -16,7 +16,7 @@ RUN apt-get update && \
 # Add MySQL scripts
 COPY import_sql.sh /import_sql.sh
 COPY run.sh /run.sh
-COPY dump.sql /dump.sql
+COPY dump.sql /dump2.sql
 
 RUN chmod a+x run.sh
 
