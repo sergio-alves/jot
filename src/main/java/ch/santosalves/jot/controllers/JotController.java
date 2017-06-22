@@ -223,7 +223,8 @@ public class JotController {
 
         // Load current questionnaire
         Questionnaire questionnaire = qs.getQuestionnaireById(jotSession.getQuestionnaireId());
-
+        
+        LOGGER.info("The user " + jotSession.getFullName() + " answered " + questionAnswer.getAnswers().stream().map(mapper-> "ID : "+ mapper +" " + as.findOne(mapper).getResource().getContent()).collect(Collectors.joining(", ")) + " for the question id " + questionAnswer.getQuestionId());
         // Add response to the OJT session object
         jotSession.getAnswers().put(questionAnswer.getQuestionId(), questionAnswer.getAnswers());
 

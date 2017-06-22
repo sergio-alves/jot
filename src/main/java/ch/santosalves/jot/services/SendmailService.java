@@ -63,20 +63,20 @@ public class SendmailService {
         asList.add(email);
         asList.addAll(Arrays.asList(hrEmail.split(",")));
 
+        
         StringBuilder sb = new StringBuilder();
         sb.append("<p>Dear " + fullname + ",</p>");
-        sb.append("<p>");
         if(success) {
-            sb.append("We inform you that you successfully achieved the assessment.<br/>Shortly we will come back to you to explain the next steps.");
+            sb.append("<p>");
+            sb.append("We inform you that you successfuly achieved the assessment.<br/>Shortly we will come back to you with the next step.");
+            sb.append("</p>");
+            sb.append("<p>Best regards,</p>");
         }else{
-            sb.append("We inform that you, unfortunately, <b>didn't achieved</b> the assessment.<br/> Below you test results.");
-            sb.append("<p>You answered correctly to "+right+" questions over " + session.getAnswers().size() + " available.</p>");
-//            sb.append("<p><table><tr><th>Question</th><th>Possible Answers</th><th>Your Answer</th><th>Expected Answer</th></tr>");
-//            raList.forEach(res->sb.append("<tr><td>"+res.getQuestion()+"</td><td>"+res.getResponses().stream().collect(Collectors.joining("<br>"))+"</td><td>"+res.getResponse()+"</td><td>"+res.getExplanation()+"</td></tr>"));            
-//            sb.append("</table></p>");
+            sb.append("<p>We appreciate you completing this brief assessment.</p>");
+            sb.append("<p>Your score result is "+right+" answers over " + session.getAnswers().size() + " questions. Unfortunately this score appears to be a bit lower than expected</p>");
+            sb.append("<p>Should you feel that the test isn't reflective of your knowledge or if you have any question or comment, please contact us at your convenience.</p>");
+            sb.append("<p>Thank you again for your time. Best Regards,</p>");
         }
-        sb.append("</p>");
-        sb.append("<p>Best regards,</p>");
         sb.append("<p>Utopix Team</p>");
         sb.append("</p>");
         
@@ -89,7 +89,7 @@ public class SendmailService {
         List<String> asList = new ArrayList<>();
         asList.add(email);
         asList.addAll(Arrays.asList(hrEmail.split(",")));
-        
+                
         String subject = "Self-assessment Session created";
 
         StringBuilder sb = new StringBuilder();
@@ -127,11 +127,6 @@ public class SendmailService {
         properties.setProperty("mail.smtp.host", host);
         properties.setProperty("mail.user", smtpUsername);
         properties.setProperty("mail.password", smtpPassword);
-        //properties.setProperty("mail.smtp.starttls.enable", "true");
-        //properties.setProperty("mail.smtp.auth", "true");
-        //properties.setProperty("mail.smtp.socketFactory.port", "587");
-        //properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        //properties.setProperty("mail.smtp.socketFactory.fallback", "false");
 
         // Get the default Session object.
         Session session = Session.getDefaultInstance(properties);
