@@ -66,17 +66,15 @@ public class SendmailService {
         
         StringBuilder sb = new StringBuilder();
         sb.append("<p>Dear " + fullname + ",</p>");
+        sb.append("<p>We appreciate you completing this brief assessment</p>");
         if(success) {
-            sb.append("<p>");
-            sb.append("We inform you that you successfuly achieved the assessment.<br/>Shortly we will come back to you with the next step.");
-            sb.append("</p>");
-            sb.append("<p>Best regards,</p>");
+            sb.append("<p><b>Congratulations</b>, your score result is "+right+" correct answers out of" + session.getAnswers().size() + " questions!</p>");
+            sb.append("<p>Please contact us at your earliest convenience to decide on the next steps.</p>");
         }else{
-            sb.append("<p>We appreciate you completing this brief assessment.</p>");
-            sb.append("<p>Your score result is "+right+" answers over " + session.getAnswers().size() + " questions. Unfortunately this score appears to be a bit lower than expected</p>");
+            sb.append("<p>Your score result is "+right+" answers out of " + session.getAnswers().size() + " questions. Unfortunately this score appears to be a bit lower than expected</p>");
             sb.append("<p>Should you feel that the test isn't reflective of your knowledge or if you have any question or comment, please contact us at your convenience.</p>");
-            sb.append("<p>Thank you again for your time. Best Regards,</p>");
         }
+        sb.append("<p>Thank you again for your time. Best Regards,</p>");
         sb.append("<p>Utopix Team</p>");
         sb.append("</p>");
         
